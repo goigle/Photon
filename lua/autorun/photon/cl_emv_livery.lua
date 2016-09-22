@@ -76,10 +76,20 @@ Photon.AutoLivery.ApplyFallback = function( ent, id )
 end
 
 Photon.AutoLivery.ApplyTexture = function( mat, ent, car, val, id )
+local liveries = EMVU.Liveries[ ent.VehicleName ]
+local model = ""
+for key,tbl in pairs(liveries) do
+	for k,v in pairs(tbl) do 
+		if v[2] == id then
+			model = v[1]
+		end
+	end
+end
+
 	local veh = ent
 	if not IsValid( ent ) then return end
 	local matParams = {
-		["$basetexture"] = mat:GetString( "$basetexture" ) .. ".png",
+		["$basetexture"] = model,
 		["$bumpmap"] =  "models/LoneWolfiesCars/shared/skin_nm",
 		["$nodecal"] = 1,
 		["$phong"] = 1,
@@ -92,7 +102,7 @@ Photon.AutoLivery.ApplyTexture = function( mat, ent, car, val, id )
 		["$envmaptint"] =  "[0.1 0.1 0.1]",
 		["$colorfix"] = "{255 255 255}",
 	}
-	local newLivery = CreateMaterial( string.format( "photon_livery_%s_%s_%s", car, val, id ) , "VertexlitGeneric", matParams )
+	local newLivery = CreateMaterial(  ent.VehicleName .. "_" .. id, "VertexlitGeneric", matParams )
 	local applyIndex = ent:Photon_GetAutoSkinIndex()
 	veh:SetSubMaterial( applyIndex, "!" .. tostring( newLivery:GetName() ) )
 	veh.Photon_LiveryData = {

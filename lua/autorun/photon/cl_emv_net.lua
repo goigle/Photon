@@ -2,6 +2,11 @@ AddCSLuaFile()
 
 EMVU.Net = {}
 
+timer.Simple(5,function()
+	net.Start("photon_player_finished_loading")
+	net.SendToServer()
+end)
+
 function EMVU.Net:Siren( arg )
 	net.Start( "emvu_siren" )
 		net.WriteString( arg )
@@ -81,10 +86,34 @@ function EMVU.Net:Livery( category, index )
 	net.SendToServer()
 end
 
+hook.Add( "Think", "PhotonCheckPVSFix", function()
+	for k,ent in pairs(ents.GetAll()) do
+		if ent:IsValid() and ent:IsVehicle() and ent.CphotonNetId != nil then
+			if ent:GetPos():ToScreen().visible and ent:GetPos():Distance(LocalPlayer():GetPos()) < 5000 then
+				if ent.fixed != true and ent.needToBeFixed == true then
+					--print("fixing for car")
+					--print(ent.CphotonNetId)
+					ent.fixed = true
+					Photon.AutoLivery.Apply( ent.CphotonNetId, ent.CphotonNetUnit, ent )
+					needToBeFixed = false
+				end
+			else
+				if ent:GetPos():ToScreen().visible == false or ent:GetPos():Distance(LocalPlayer():GetPos()) > 5000 then
+					--print("will be fixed")
+					ent.needToBeFixed = true
+					ent.fixed = false
+				end
+			end
+		end
+	end
+end )
+
 function EMVU.Net:ReceiveLiveryUpdate( id, unit, ent )
+	ent.CphotonNetId = id
+	ent.CphotonNetUnit = unit
 	Photon.AutoLivery.Apply( id, unit, ent )
 end
-net.Receive( "photon_liveryupdate", function() 
+net.Receive( "photon_liveryupdate", function()
 	EMVU.Net:ReceiveLiveryUpdate( net.ReadString(), net.ReadString(), net.ReadEntity() )
 end)
 
@@ -150,7 +179,7 @@ function EMVU.Net.ApplyLicenseMaterial( ent, mat )
 	net.SendToServer()
 end
 
-concommand.Add( "photon_debug_getbones", function() 
+concommand.Add( "photon_debug_getbones", function()
 	local ent = ply:GetEyeTrace().Entity
 	if not IsValid( ent ) then return end
 	print(tostring(ent:GetBoneCount()))
