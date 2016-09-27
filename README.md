@@ -1,5 +1,6 @@
 # Photon
 ![Photon Taurus](https://photon.lighting/images/police-taurus.png)
+
 Garry's Mod Lighting Engine
 
 This is the unofficial GitHub page for the Photon Lighting Engine. Code is licensed under a Creative Commons Non-Commercial Attribution agreement.
