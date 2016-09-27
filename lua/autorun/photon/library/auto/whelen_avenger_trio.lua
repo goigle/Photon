@@ -10,7 +10,7 @@ local SW = "S_WHITE"
 local G = "GREEN"
 local RB = "BLUE/RED"
 
-local name = "Whelen Avenger"
+local name = "Whelen Avenger Trio"
 
 local COMPONENT = {}
 
@@ -22,6 +22,7 @@ COMPONENT.NotLegacy = true
 COMPONENT.DefaultColors = {
 	[1] = "BLUE",
 	[2] = "RED",
+	[3] = "WHITE"
 }
 
 COMPONENT.Meta = {
@@ -39,6 +40,7 @@ COMPONENT.Meta = {
 }
 
 COMPONENT.Positions = {
+
 	[1] = { Vector( -0.72, 2.6, -0.85 ), Angle( 0, 90, 0 ), "auto_avenger" },
 	[2] = { Vector( -0.72, -2.6, -0.85 ), Angle( 0, 90, 0 ), "auto_avenger" },
 
@@ -47,15 +49,19 @@ COMPONENT.Positions = {
 COMPONENT.Sections = {
 	["auto_whelen_avenger"] = {
 		[1] = { { 1, "_1" } },
-		[2] = { { 2, "_2" } }
+		[2] = { { 1, "_2" } },
+		[3] = { { 1, "_3" } },
+		[4] = { { 2, "_1" } },
+		[5] = { { 2, "_2" } },
+		[6] = { { 2, "_3" } },
 	}
 }
 
 COMPONENT.Patterns = {
 	["auto_whelen_avenger"] = {
-		["code1"] = { 1, 1, 1, 1, 2, 2, 2, 2},
-		["code2"] = { 1, 0, 1, 0, 2, 0, 2, 0},
-		["code3"] = { 1, 1, 2, 2},
+		["code1"] = { 1, 1, 1, 1, 5, 5, 5, 5, 3, 3, 3, 3, 4, 4, 4, 4, 2, 2, 2, 2, 6, 6, 6, 6},
+		["code2"] = { 1, 0, 1, 0, 5, 0, 5, 0, 3, 0, 3, 0, 4, 0, 4, 0, 2, 0, 2, 0, 6, 0, 6, 0},
+		["code3"] = { 1, 1, 5, 5, 3, 3, 4, 4, 2, 2, 6, 6,},
 	},
 }
 
@@ -67,7 +73,17 @@ COMPONENT.Modes = {
 		--ALERT = { ["auto_whelen_avenger"] = "alert", },
 	},
 	Auxiliary = {},
-	Illumination = {}
+	Illumination = {
+		--Getting illum to work is still a WIP
+		/*
+		F = {
+			{ 1, "_3" }, { 2, "_3" }
+		},
+		T = {
+			{ 1, "_3" }, { 2, "_3" }
+		}
+		*/
+	}
 }
 
 EMVU:AddAutoComponent( COMPONENT, name )

@@ -10,7 +10,7 @@ local SW = "S_WHITE"
 local G = "GREEN"
 local RB = "BLUE/RED"
 
-local name = "Whelen Avenger"
+local name = "Whelen Avenger CHP"
 
 local COMPONENT = {}
 
@@ -39,32 +39,33 @@ COMPONENT.Meta = {
 }
 
 COMPONENT.Positions = {
-	[1] = { Vector( -0.72, 2.6, -0.85 ), Angle( 0, 90, 0 ), "auto_avenger" },
-	[2] = { Vector( -0.72, -2.6, -0.85 ), Angle( 0, 90, 0 ), "auto_avenger" },
+
+	[1] = { Vector( 2.6, -0.72, -0.85 ), Angle( 0, 180, 0 ), "auto_avenger" },
+	[2] = { Vector( -2.6, -0.72, -0.85 ), Angle( 0, 180, 0 ), "auto_avenger" },
 
 }
 
 COMPONENT.Sections = {
-	["auto_whelen_avenger"] = {
-		[1] = { { 1, "_1" } },
-		[2] = { { 2, "_2" } }
+	["auto_whelen_avenger_chp"] = {
+		[1] = {
+			{1, B, 0.66}, {2, R, 0.66}
+		}
 	}
 }
 
 COMPONENT.Patterns = {
-	["auto_whelen_avenger"] = {
-		["code1"] = { 1, 1, 1, 1, 2, 2, 2, 2},
-		["code2"] = { 1, 0, 1, 0, 2, 0, 2, 0},
-		["code3"] = { 1, 1, 2, 2},
+	["auto_whelen_avenger_chp"] = {
+		["code1"] = { 1 }
 	},
 }
+		
 
 COMPONENT.Modes = {
 	Primary = {
-		M1 = { ["auto_whelen_avenger"] = "code1", },
-		M2 = { ["auto_whelen_avenger"] = "code2", },
-		M3 = { ["auto_whelen_avenger"] = "code3", },
-		--ALERT = { ["auto_whelen_avenger"] = "alert", },
+		M1 = { ["auto_whelen_avenger_chp"] = "code1", },
+		M2 = { ["auto_whelen_avenger_chp"] = "code2", },
+		M3 = { ["auto_whelen_avenger_chp"] = "code3", },
+		ALERT = { ["auto_whelen_avenger_chp"] = "alert", },
 	},
 	Auxiliary = {},
 	Illumination = {}
