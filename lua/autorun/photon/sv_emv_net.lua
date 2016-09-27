@@ -246,7 +246,6 @@ end )
 function SendLiveriesToClient(ply)
 	for k,ent in pairs(ents.GetAll()) do
 		if ent:IsVehicle() and ent.photonLiverySet != nil and ent.photonLiverySet == true then
-			--print(tostring(ent) .. ": " .. tostring(ent.photonNetId) .. " | " .. tostring(ent.photonNetUnit))
 			net.Start( "photon_liveryupdate" )
 			net.WriteString( ent.photonNetId )
 			net.WriteString( ent.photonNetUnit )

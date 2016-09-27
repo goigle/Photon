@@ -91,15 +91,12 @@ hook.Add( "Think", "PhotonCheckPVSFix", function()
 		if ent:IsValid() and ent:IsVehicle() and ent.CphotonNetId != nil then
 			if ent:GetPos():ToScreen().visible and ent:GetPos():Distance(LocalPlayer():GetPos()) < 5000 then
 				if ent.fixed != true and ent.needToBeFixed == true then
-					--print("fixing for car")
-					--print(ent.CphotonNetId)
 					ent.fixed = true
 					Photon.AutoLivery.Apply( ent.CphotonNetId, ent.CphotonNetUnit, ent )
 					needToBeFixed = false
 				end
 			else
 				if ent:GetPos():ToScreen().visible == false or ent:GetPos():Distance(LocalPlayer():GetPos()) > 5000 then
-					--print("will be fixed")
 					ent.needToBeFixed = true
 					ent.fixed = false
 				end
