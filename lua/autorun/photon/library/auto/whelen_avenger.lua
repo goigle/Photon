@@ -10,7 +10,7 @@ local SW = "S_WHITE"
 local G = "GREEN"
 local RB = "BLUE/RED"
 
-local name = "Whelen Avenger"
+local name = "Whelen Avenger Dual"
 
 local COMPONENT = {}
 
