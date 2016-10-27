@@ -20,8 +20,8 @@ COMPONENT.Category = "Interior"
 COMPONENT.Bodygroups = {}
 COMPONENT.NotLegacy = true
 COMPONENT.DefaultColors = {
-	[1] = "BLUE",
-	[2] = "RED",
+	[1] = "RED",
+	[2] = "BLUE",
 }
 
 COMPONENT.Meta = {
