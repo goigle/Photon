@@ -76,11 +76,11 @@ end
 
 function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, pixvis, lnum, brght, multicolor, type, emitDynamic, contingent )
 	if lnum == 14 then
-		-- print( string.format( "Type:%s\nParent:%s\nColors:%s\nLocal Position:%s\nGlobal Position:%s\nLocal Angle:%s\nMeta:%s\nPixVis:%s\nLocal Number:%s\n", 
+		-- print( string.format( "Type:%s\nParent:%s\nColors:%s\nLocal Position:%s\nGlobal Position:%s\nLocal Angle:%s\nMeta:%s\nPixVis:%s\nLocal Number:%s\n",
 		-- tostring(type), tostring(parent), tostring(incolors), tostring(ilpos), tostring(gpos), tostring(lang), tostring(meta), tostring(pixvis), tostring(lnum) ))
 	end
 	-- print("received light to render")
-	
+
 	if not incolors or not ilpos or not lang or not meta or not gpos then return end
 	local resultTable = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
 	-- PrintTable( meta )
@@ -95,10 +95,10 @@ function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, 
 	if bloom_multi and bloom_multi:GetFloat() then manualBloom = bloom_multi:GetFloat() end
 
 	lpos:Set( ilpos )
-	
+
 	local rotating = false
-		
-	if offset == "R" or offset == "RR" then 
+
+	if offset == "R" or offset == "RR" then
 		local speed = 2
 		if meta.Speed then speed = meta.Speed end
 		offset = rotatingLight(emvHelp, speed, 10)
@@ -129,7 +129,7 @@ function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, 
 		lpos[1] = lpos[1] + lposMod
 		lpos[2] = lpos[2] + lposMod
 	end
-		
+
 	local worldPos = gpos
 	// local worldPos = parent:LocalToWorld(lpos)
 
@@ -159,7 +159,7 @@ function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, 
 		end
 
 	if not visible or visible <= 0 then return end
-	
+
 	if not meta.Scale then meta.Scale = 1 end
 	if not meta.WMult then meta.WMult = 1 end
 	local ca = parent:GetAngles()
@@ -205,7 +205,7 @@ function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, 
 		local brightness = 1
 		local rawBrightness = 1
 		local pulseOverride = false
-		
+
 		if brght and istable(brght) then
 			brightness = pulsingLight( emvHelp, brght[1], brght[2], brght[3] )
 			pulseOverride = true
@@ -222,8 +222,8 @@ function Photon:PrepareVehicleLight( parent, incolors, ilpos, gpos, lang, meta, 
 		local distModifier = ( 1 - clamp( ( dist / 512 ), 0, 1) )
 		viewFlare = viewFlare * distModifier
 
-		if meta.SourceOnly == true then 
-			srcOnly = true 
+		if meta.SourceOnly == true then
+			srcOnly = true
 		end
 
 		local al = Angle()
@@ -356,7 +356,7 @@ function Photon.QuickDrawNoTable( srcOnly, drawSrc, camPos, camAng, srcSprite, s
 				drawSprite( worldPos, 12 * widthScale, 12 * bloomScale, colMed )
 		end
 	end
-	
+
 
 end
 
@@ -506,7 +506,7 @@ function Photon:RenderQueue( effects )
 	if not effects then endCam3d() else endCam2d() end
 	-- Photon:ClearLightQueue()
 end
-hook.Add( "PreDrawEffects", "Photon.RenderQueue", function() 
+hook.Add( "PreDrawEffects", "Photon.RenderQueue", function()
 	Photon:RenderQueue( false )
 	if draw_effects and draw_effects:GetBool() then
 		Photon:RenderQueue( true )
@@ -518,8 +518,8 @@ local isFuckingBloomMap = false
 local fuckingBloomMaps = {
 	["gm_driversheaven_tdm"] = true,
 }
-hook.Add( "InitPostEntity", "Photon.CheckForFuckingBloomMap", function() 
-	isFuckingBloomMap = fuckingBloomMaps[ tostring( game.GetMap() ) ]  
+hook.Add( "InitPostEntity", "Photon.CheckForFuckingBloomMap", function()
+	isFuckingBloomMap = fuckingBloomMaps[ tostring( game.GetMap() ) ]
 end )
 local mapBloomAdjust = 1
 function Photon.DrawDirtyLensEffect()
@@ -537,7 +537,7 @@ function Photon.DrawDirtyLensEffect()
 	bloomRef = 0; bloomColor = nil;
 
 end
-hook.Add( "RenderScreenspaceEffects", "Photon.ScreenEffects", function() 
+hook.Add( "RenderScreenspaceEffects", "Photon.ScreenEffects", function()
 	Photon.DrawDirtyLensEffect()
 end)
 
@@ -552,7 +552,7 @@ function Photon.RenderDynamicLightQueue()
 		end
 	end
 end
-hook.Add( "Think", "Photon.RenderDynamicLightQueue", function() 
+hook.Add( "Think", "Photon.RenderDynamicLightQueue", function()
 	if ( dynlights_enabled and dynlights_enabled.GetBool and dynlights_enabled:GetBool() ) then Photon.RenderDynamicLightQueue() end
 end)
 
@@ -570,7 +570,7 @@ hook.Add( "PostDrawTranslucentRenderables", "Photon.UpdateLocalEyeInfo", functio
 	useEyeAng:Set( EyeAngles() )
 end)
 
-concommand.Add( "photon_maxoverride", function( ply ) 
+concommand.Add( "photon_maxoverride", function( ply )
 	local ent = ply:GetEyeTrace().Entity
 	if not IsValid( ent ) then return end
 	ent.Photon_OldDrawModel = ent.Draw
@@ -583,7 +583,7 @@ concommand.Add( "photon_maxoverride", function( ply )
 	-- end
 end )
 
--- hook.Add( "PreR", "Photon.PleaseFuckingWOrk", function() 
+-- hook.Add( "PreR", "Photon.PleaseFuckingWOrk", function()
 -- 	render.MaterialOverrideByIndex( 0, "sprites/emv/fs_valor" )
 -- 	-- for k,v in pairs( ents.GetAll() ) do
 -- 	-- 	if not IsValid( v ) then continue end
@@ -595,11 +595,13 @@ end )
 -- 	-- end
 -- end )
 
-hook.Add( "PreDrawHalos", "Photon.HaloTest", function() 
+--Commented out, added in Schmal's unfinished Estes Park update. 
+--[[
+hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	local targs = {}
 	for k,ent in pairs( ents.GetAll() ) do
 		if not IsValid( ent ) then continue end
-		if ent:GetModel() == "models/schmal/lwdodch_tail.mdl" then 
+		if ent:GetModel() == "models/schmal/lwdodch_tail.mdl" then
 			targs[#targs+1] = ent
 		end
 	end
@@ -607,7 +609,7 @@ hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	local targs = {}
 	for k,ent in pairs( ents.GetAll() ) do
 		if not IsValid( ent ) then continue end
-		if ent:GetModel() == "models/schmal/tdm_cvpi_tail.mdl" then 
+		if ent:GetModel() == "models/schmal/tdm_cvpi_tail.mdl" then
 			targs[#targs+1] = ent
 		end
 	end
@@ -616,7 +618,7 @@ hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	local targs = {}
 	for k,ent in pairs( ents.GetAll() ) do
 		if not IsValid( ent ) then continue end
-		if ent:GetModel() == "models/schmal/lwdodch_head_driver_glw.mdl" then 
+		if ent:GetModel() == "models/schmal/lwdodch_head_driver_glw.mdl" then
 			targs[#targs+1] = ent
 		end
 	end
@@ -624,7 +626,7 @@ hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	halo.Add( targs, Color( 200, 220, 255 ), 4, 4, 2, true, false )
 	-- halo.Add( targs, Color( 200, 220, 255 ), 4, 4, 5, true, false )
 end )
-
+]]
 hook.Add("HudPaint","photonmodelglowtest",function()
 	for k,ent in pairs( ents.GetAll() ) do
 		if not IsValid( ent ) then continue end
