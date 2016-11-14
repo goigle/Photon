@@ -85,23 +85,26 @@ function EMVU.Net:Livery( category, index )
 		net.WriteString( unitid_pref:GetString() or GenerateDefaultUnitID() )
 	net.SendToServer()
 end
-
-hook.Add( "Think", "PhotonCheckPVSFix", function()
-	for k,ent in pairs(ents.GetAll()) do
-		if ent:IsValid() and ent:IsVehicle() and ent.CphotonNetId != nil then
-			if ent:GetPos():ToScreen().visible and ent:GetPos():Distance(LocalPlayer():GetPos()) < 5000 then
-				if ent.fixed != true and ent.needToBeFixed == true then
-					ent.fixed = true
-					Photon.AutoLivery.Apply( ent.CphotonNetId, ent.CphotonNetUnit, ent )
-					needToBeFixed = false
-				end
-			else
-				if ent:GetPos():ToScreen().visible == false or ent:GetPos():Distance(LocalPlayer():GetPos()) > 5000 then
-					ent.needToBeFixed = true
-					ent.fixed = false
+local nextCheck = CurTime()
+hook.Add( "Think", "Photon.CheckPVSFix", function()
+	if nextCheck > CurTime() then
+		for k,ent in pairs(ents.GetAll()) do
+			if ent:IsValid() and ent:IsVehicle() and ent.CphotonNetId != nil then
+				if ent:GetPos():ToScreen().visible and ent:GetPos():Distance(LocalPlayer():GetPos()) < 5000 then
+					if ent.fixed != true and ent.needToBeFixed == true then
+						ent.fixed = true
+						Photon.AutoLivery.Apply( ent.CphotonNetId, ent.CphotonNetUnit, ent )
+						needToBeFixed = false
+					end
+				else
+					if ent:GetPos():ToScreen().visible == false or ent:GetPos():Distance(LocalPlayer():GetPos()) > 5000 then
+						ent.needToBeFixed = true
+						ent.fixed = false
+					end
 				end
 			end
 		end
+		nextCheck = CurTime() + 1
 	end
 end )
 
