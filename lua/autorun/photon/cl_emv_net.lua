@@ -87,7 +87,7 @@ function EMVU.Net:Livery( category, index )
 end
 local nextCheck = CurTime()
 hook.Add( "Think", "Photon.CheckPVSFix", function()
-	if nextCheck > CurTime() then
+	if CurTime() > nextCheck then
 		for k,ent in pairs(ents.GetAll()) do
 			if ent:IsValid() and ent:IsVehicle() and ent.CphotonNetId != nil then
 				if ent:GetPos():ToScreen().visible and ent:GetPos():Distance(LocalPlayer():GetPos()) < 5000 then
