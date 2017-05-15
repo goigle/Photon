@@ -104,7 +104,7 @@ hook.Add( "Think", "Photon.CheckPVSFix", function()
 				end
 			end
 		end
-		nextCheck = CurTime() + 1
+		nextCheck = CurTime() + 0.25
 	end
 end )
 
