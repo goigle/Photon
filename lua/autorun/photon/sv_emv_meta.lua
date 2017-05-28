@@ -533,7 +533,7 @@ function EMVU:MakeEMV( ent, emv )
 			//PrintTable( photonUtilString )
 			self:Photon_SetUtilString( table.concat( photonUtilString, "ö" ) )
 			local selectionData = EMVU.Selections[ self.Name ][ index ].Options[value]
-			if istable( selectionData.Bodygroups ) then
+			if selectionData != nil and istable( selectionData.Bodygroups ) then
 				for _,bgData in pairs( selectionData.Bodygroups ) do
 					self:SetBodygroup( bgData[1], bgData[2] )
 				end
