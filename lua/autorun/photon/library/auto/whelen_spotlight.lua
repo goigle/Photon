@@ -59,7 +59,7 @@ COMPONENT.Patterns = {
 
 COMPONENT.Modes = {
 	Primary = {
-		M1 = { ["auto_whelen_spotlight"] = "c1" },
+		M1 = {},
 		M2 = {},
 		M3 = {}
 	},
