@@ -13,7 +13,7 @@ local G = "GREEN"
 
 local EMV = {}
 
-EMV.Siren = 46
+EMV.Siren = 50
 
 -- EMV.Skin = "fpiu16_liveries/Blank"
 
@@ -390,7 +390,7 @@ EMV.Auto = {
 		Scale = 1,
 		Pos = Vector( 0, -10.4, 82 ),
 		Ang = Angle( 1, 90, 0),
-	},	
+	},
 	[2] = {
 		ID = "Federal Signal Legend",
 		Scale = 1.05,

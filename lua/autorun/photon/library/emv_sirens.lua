@@ -4,11 +4,11 @@ AddCSLuaFile()
 -- Tables are numbered to avoid vehicles using the wrong siren set from being rearranged.
 
 local sirenTable = {
-	
+
 	[1] = {
 		Name = "Alpha", -- (Name that's displayed on HUD) this a typical Whelen siren, extremely common on vehicles within the last 20 years
 		Category = "Whelen",
-		Set = { -- 
+		Set = { --
 			{Name = "WAIL", Sound = "emv/sirens/whelen std/emv_wail.wav", Icon="wail"},
 			{Name = "YELP", Sound = "emv/sirens/whelen std/emv_yelp.wav", Icon="yelp"},
 			{Name = "PIER", Sound = "emv/sirens/whelen std/emv_phaser.wav", Icon="phaser"},
@@ -192,7 +192,7 @@ local sirenTable = {
 	},
 	[21] = { -- provided by Super Mighty
 		Name = "GTA V",
-		Category = "Other", 
+		Category = "Other",
 		Set = {
 			{Name = "WAIL", Sound = "emv/sirens/gta/emv_wail.wav", Icon="wail"},
 			{Name = "YELP", Sound = "emv/sirens/gta/emv_yelp.wav", Icon="yelp"},
@@ -202,7 +202,7 @@ local sirenTable = {
 	[22] = { -- provided by Super Mighty
 		Name = "Intimidator",
 		Category = "D&R",
-		Set = { -- 
+		Set = { --
 			{Name = "WAIL", Sound = "emv/sirens/canada/emv_wail.wav", Icon="wail"},
 			{Name = "YELP", Sound = "emv/sirens/canada/emv_yelp.wav", Icon="yelp"},
 			{Name = "HPYP", Sound = "emv/sirens/canada/emv_phaser.wav", Icon="phaser"},
@@ -241,7 +241,7 @@ local sirenTable = {
 		},
 	},
 	[26] = {
-		Name = "SQ Zone", 
+		Name = "SQ Zone",
 		Category = "Other",
 		Set = {
 			{Name = "WAIL", Sound = "emv/sirens/sq zone/emv_wail.wav", Icon="wail"},
@@ -423,15 +423,15 @@ local sirenTable = {
 	[46] = {
 		Name = "Gamma",
 		Category = "Whelen",
-		Gain = {
-			Sound = "sound/emv/sirens/whelen gamma/emv_wind3.wav",
-			-- UpRate = .017,
-			-- DownRate = .005,
-			UpRate = .034,
-			DownRate = .01,
-			MaxRate = 1,
-			MinRate = .3
-		},
+		-- Gain = {
+	-- 	Sound = "sound/emv/sirens/whelen gamma/emv_wind3.wav",
+	-- 	-- UpRate = .017,
+	-- 	-- DownRate = .005,
+	-- 	UpRate = .034,
+	-- 	DownRate = .01,
+	-- 	MaxRate = 1,
+	-- 	MinRate = .3
+	-- },
 		Set = {
 			{Name = "WAIL", Sound = "emv/sirens/whelen gamma/emv_wail.wav", Icon="wail"},
 			{Name = "YELP", Sound = "emv/sirens/whelen gamma/emv_yelp.wav", Icon="yelp"},
@@ -491,7 +491,7 @@ local sirenTable = {
 	[51] = {
 		Name = "CO19 STIRLING", -- Old styled siren typically used by the Met's armed responce team in the late 2000's
 		Category = "Woodway Eng.",
-		Set = { -- 
+		Set = { --
 			{Name = "WAIL", Sound = "emv/sirens/co19/emv_wail.wav"},
 			{Name = "YELP", Sound = "emv/sirens/co19/emv_yelp.wav"},
 			{Name = "HYPER-YELP", Sound = "emv/sirens/co19/emv_phaser.wav"},
@@ -529,7 +529,7 @@ EMVU.GetSiren = function( index )
 	return sirenTable[1]
 end
 
-EMVU.GetSirenTable = function() 
+EMVU.GetSirenTable = function()
 	return sirenTable
 end
 

@@ -14,8 +14,8 @@ PHOTON_BANNED_UNIT_IDS = {
 
 local BOOL_CONST_OFFSET = 19
 
-PHOTON_UPDATE = 69
-PHOTON_SERIES = "Denver"
+PHOTON_UPDATE = 72
+PHOTON_SERIES = "Estes Park - Goigle"
 
 // booleans //
 EMV_LIGHTS_ON        = BOOL_CONST_OFFSET + 0
@@ -57,7 +57,7 @@ CAR_HAZARD			 = 3
 EMV_FRAME_DUR		 = .05
 EMV_FRAME_CONST		 = .05
 
-//			GLOBALS					///	
+//			GLOBALS					///
 
 EMV_PIXVIS_MULTIPLIER = 1
 PHO_DEFAULT_BLINK	 = .4
@@ -71,7 +71,7 @@ PHOTON_TRF_WARN							= 4
 -- If you encounter this problem, increase this number and then buy a new fucking computer. Jesus Christ.
 
 // SECONDS A PLAYER MUST WAIT FOR UNTIL THEY CAN CHANGE LIVERY AGAIN //
-PHOTON_LIVERY_COOLDOWN = 3 
+PHOTON_LIVERY_COOLDOWN = 3
 
 PHOTON_CHRISTMAS_PERMIT = false
 
@@ -100,6 +100,6 @@ if CLIENT then
 
 		RunConsoleCommand( "photon_christmas_mode", 0 )
 		RunConsoleCommand( "photon_christmas_mode_auto", 0 )
-				
+
 	end)
 end

@@ -33,7 +33,7 @@ local function DrawEMVLights()
 	for k,v in pairs( EMVU:AllVehicles() ) do
 		if IsValid( v ) and v.IsEMV and v:IsEMV() and v.Photon_RenderEL then v:Photon_RenderEL() elseif v:IsEMV() then EMVU:MakeEMV(v, v:EMVName()) end
 		if IsValid( v ) and v.IsEMV and v:IsEMV() and v.Photon_RenderIllum then v:Photon_RenderIllum() end
-	end	
+	end
 end
 -- hook.Add("PreRender", "EMVU.Scan", DrawEMVLights)
 
@@ -45,14 +45,14 @@ local function DrawCarLights()
 		if IsValid( ent ) then
 			if ent:Photon() and ent.Photon_RenderLights then
 				if( should_render_reg:GetBool() ) then
-					ent:Photon_RenderLights( 
-						ent:Photon_HeadlightsOn(), 
-						ent:Photon_IsRunning(), 
-						ent:Photon_IsReversing(), 
-						ent:Photon_IsBraking(), 
-						ent:Photon_TurningLeft(), 
-						ent:Photon_TurningRight(), 
-						ent:Photon_Hazards(), 
+					ent:Photon_RenderLights(
+						ent:Photon_HeadlightsOn(),
+						ent:Photon_IsRunning(),
+						ent:Photon_IsReversing(),
+						ent:Photon_IsBraking(),
+						ent:Photon_TurningLeft(),
+						ent:Photon_TurningRight(),
+						ent:Photon_Hazards(),
 						photonDebug
 					)
 				end
@@ -80,9 +80,9 @@ local function PhotonManualWindScan()
 	end
 end
 -- hook.Add("PreRender", "EMVU.ScanSound", PhotonManualWindScan)
-timer.Create( "Photon.ManualWindScan", .01, 0, function()
-	PhotonManualWindScan()
-end )
+--timer.Create( "Photon.ManualWindScan", .01, 0, function()
+--	PhotonManualWindScan()
+--end )
 
 local function PhotonManualWindFocus()
 	if not photon_ready or not should_render:GetBool() then return end
@@ -93,7 +93,7 @@ local function PhotonManualWindFocus()
 		if not IsValid( sndData[2] ) then sndData[1]:Stop(); EMVU.ManualSirenTable[_] = nil end
 	end
 end
-hook.Add( "PreRender", "Photon.ManualFocusCheck", function() PhotonManualWindFocus() end )
+--hook.Add( "PreRender", "Photon.ManualFocusCheck", function() PhotonManualWindFocus() end )
 
 local function PhotonRadarScan()
 	if not photon_ready or not should_render:GetBool() then return end
@@ -121,7 +121,7 @@ concommand.Add( "photon_pause", function()
 	photon_pause = !photon_pause
 end)
 
--- concommand.Add( "photon_selectiondata", function( ply ) 
+-- concommand.Add( "photon_selectiondata", function( ply )
 -- 	local veh = ply:GetVehicle()
 -- 	if not IsValid( veh ) then return end
 -- 	-- print("BEFORE:::::::::::::::::::::::")
@@ -330,7 +330,7 @@ function PrintPhotonDebugInformation()
 					print( [[CURRENT VEHICLE SIREN ON: ]] .. tostring( car:Photon_Siren() ) )
 					print( [[CURRENT VEHICLE WARNING LIGHTS: ]] .. tostring( car:Photon_Lights() ) )
 					print( [[CURRENT VEHICLE LIGHT STAGE: ]] .. tostring( car:Photon_LightOption() ) )
-					print( [[CURRENT VEHICLE FINISHED INIT: ]] .. tostring( car.PhotonFinishedInit ) ) 
+					print( [[CURRENT VEHICLE FINISHED INIT: ]] .. tostring( car.PhotonFinishedInit ) )
 					print( [[CURRENT VEHICLE POSITIONS: ]] .. tostring( #EMVU.Positions[car:EMVName()] ))
 				end
 			else
@@ -352,10 +352,26 @@ end)
 -- 	Photon.BoneRotation()
 -- end )
 
+local _rotationEntCache = {}
+local _lastRotationCache = 0
+local function getPhotonRotationEnts()
+	if not _rotationEntCache or CurTime() > (_lastRotationCache + 2) then
+		table.Empty(_rotationEntCache)
+		for _,ent in pairs(ents.GetAll()) do
+			if IsValid(ent) and ent.PhotonRotationEnabled then
+				table.insert(_rotationEntCache, ent)
+			end
+		end
+		_lastRotationCache = CurTime()
+	end
+	return _rotationEntCache
+end
+
 Photon.BoneRotation = function()
 	if photon_pause then return end
 	-- if true then return end
-	for _,ent in pairs( ents.GetAll() ) do
+	for _,ent in pairs( getPhotonRotationEnts() ) do
+		if not IsValid(ent) then return end
 		if ent.PhotonRotationEnabled then
 			local emv = ent:GetParent()
 			if not IsValid( emv ) or not emv.Photon_LightOptionID then continue end
@@ -375,7 +391,7 @@ Photon.BoneRotation = function()
 					if emv:Photon_Illumination() then
 						if boneData.Illumination and boneData.Illumination[ illumStage ] then currentAnimation = boneData.Illumination[ illumStage ] end
 					end
-					if not currentAnimation then 
+					if not currentAnimation then
 						if boneData.Default then currentAnimation = boneData.Default end
 					end
 					if not currentAnimation then continue end
@@ -430,7 +446,7 @@ Photon.BoneRotation = function()
 									ent:ManipulateBoneAngles( boneIndex, Angle( currentAngles.p, currentAngles.y, addAng ) )
 								end
 							end
-							
+
 						else
 							local max = #animAngle
 							if max > currentDir then ent.PhotonBonesAlt[ boneIndex ] = currentDir + 1
@@ -447,6 +463,6 @@ Photon.BoneRotation = function()
 	end
 end
 
-hook.Add( "PreRender", "Photon.RotationAnimation", function() 
+hook.Add( "PreRender", "Photon.RotationAnimation", function()
 	Photon.BoneRotation()
 end )

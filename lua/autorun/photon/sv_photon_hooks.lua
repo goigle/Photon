@@ -3,13 +3,13 @@ function Photon:RunningScan()
 	for k,v in pairs( self:AllVehicles() ) do
 		if IsValid( v ) and IsValid( v:GetDriver() ) and v:GetDriver():IsPlayer() then
 
-			if v:HasPhotonELS() and v.ELS.Blackout then 
+			if v:HasPhotonELS() and v.ELS.Blackout then
 				v:CAR_Running( false )
 			else
 				v:CAR_Running( true )
 			end
 
-			if v:HasPhotonELS() and v:ELS_Siren() then v:ELS_SirenContinue() end
+			--if v:HasPhotonELS() and v:ELS_Siren() then v:ELS_SirenContinue() end
 
 			if v:IsBraking() then v:CAR_Braking( true ) else v:CAR_Braking( false ) end
 			if v:IsReversing() then v:CAR_Reversing( true ) else v:CAR_Reversing( false ) end
@@ -28,8 +28,14 @@ function Photon:RunningScan()
 		end
 	end
 end
-timer.Create("Photon.RunScan", .1, 0, function()
+timer.Create("Photon.RunScan", 1, 0, function()
 	Photon:RunningScan()
+end)
+
+timer.Create("Photon.SirenRunScan", 0.2, 0, function()
+	for _,car in pairs( Photon:AllVehicles() ) do
+		if car:HasPhotonELS() and car:ELS_Siren() then car:ELS_SirenContinue() end
+	end
 end)
 
 function Photon:VehicleRemoved( ent )
@@ -56,13 +62,13 @@ concommand.Add( "photon_mat", function( ply, cmd, args )
 	PrintTable( veh:GetMaterials() )
 end)
 
-hook.Add( "Photon.EntityChangedSkin", "Photon.LiverySkinCheck", function( ent, skin ) 
+hook.Add( "Photon.EntityChangedSkin", "Photon.LiverySkinCheck", function( ent, skin )
 	if IsValid( ent ) and ent:IsEMV() and tostring(ent:Photon_GetLiveryID()) != "" then
 		ent:Photon_SetLiveryId("")
 	end
 end )
 
-hook.Add( "Photon.CanPlayerModify", "Photon.DefaultModifyCheck", function( ply, ent ) 
+hook.Add( "Photon.CanPlayerModify", "Photon.DefaultModifyCheck", function( ply, ent )
 	if not IsValid( ent ) then return false end
 	local isDriver = ( ply:GetVehicle() == ent )
 	local isOwner = ( ent:GetOwner() == ply )
@@ -86,11 +92,11 @@ local function PhotonUnitNumberScan()
 		end
 	end
 end
-timer.Create( "Photon.UnitNumberScan", 2, 0, function() 
+timer.Create( "Photon.UnitNumberScan", 2, 0, function()
 	PhotonUnitNumberScan()
 end )
 
-hook.Add( "PlayerSpawnedVehicle", "Photon.PlayerVehicleSpawn", function( ply, ent ) 
+hook.Add( "PlayerSpawnedVehicle", "Photon.PlayerVehicleSpawn", function( ply, ent )
 	ent.PhotonVehicleSpawner = ply
 end)
 

@@ -11,13 +11,16 @@ EMVU.Colors = {
 		dim = Color( 0, 175, 255, 255 ),
 		raw = Color( 0, 0, 255, 255 ),
 	},
-	-- BLUE = {
-	-- 	src = Color( 245, 255, 255, 255 ),
-	-- 	med = Color( 0, 100, 255, 255 ),
-	-- 	glw = Color( 0, 125, 255, 200 ),
-	-- 	blm = Color( 0, 75, 255, 50 ),
-	-- 	amb = Color( 0, 0, 255, 5 ),
-	-- },
+	BLUE_HALOGEN = {
+		src = Color( 255, 255, 245, 255 ),
+		med = Color( 84, 64, 255, 245 ),
+		glw = Color( 128, 100, 255, 255 ),
+		blm = Color( 64, 64, 255, 70 ),
+		amb = Color( 32, 32, 255, 5 ),
+		flr = Color( 0, 64, 225, 255 ),
+		dim = Color( 0, 175, 255, 255 ),
+		raw = Color( 0, 0, 255, 255 ),
+	},
 	RED = {
 		src = Color( 255, 255, 240, 255 ),
 		med = Color( 255, 190, 0, 220 ),
@@ -28,6 +31,16 @@ EMVU.Colors = {
 		dim = Color( 255, 100, 0, 255 ),
 		raw = Color( 255, 0, 0, 255 )
 	},
+	RED_HALOGEN = {
+	src = Color( 255, 255, 245, 255 ),
+	med = Color( 225, 190, 128, 220 ),
+	glw = Color( 205, 96, 64, 120 ),
+	blm = Color( 255, 10, 0, 70 ),
+	amb = Color( 255, 0, 0, 5 ),
+	flr = Color( 128, 8, 0, 255 ),
+	dim = Color( 255, 100, 0, 255 ),
+	raw = Color( 255, 0, 0, 255 )
+},
 	D_RED = { -- dark red, designed to not appear as bright as its red brother, used primarily for brake and tail lights
 		src = Color( 255, 128, 128, 255 ),
 		med = Color( 255, 200, 0, 255 ),

@@ -570,18 +570,18 @@ hook.Add( "PostDrawTranslucentRenderables", "Photon.UpdateLocalEyeInfo", functio
 	useEyeAng:Set( EyeAngles() )
 end)
 
-concommand.Add( "photon_maxoverride", function( ply )
-	local ent = ply:GetEyeTrace().Entity
-	if not IsValid( ent ) then return end
-	ent.Photon_OldDrawModel = ent.Draw
-	print("affirm")
-	ent.Draw = false
+--concommand.Add( "photon_maxoverride", function( ply )
+--	local ent = ply:GetEyeTrace().Entity
+--	if not IsValid( ent ) then return end
+--	ent.Photon_OldDrawModel = ent.Draw
+--	print("affirm")
+--	ent.Draw = false
 	-- ent.Draw = function( self )
 	-- 	print( "called" )
 	-- 	render.MaterialOverrideByIndex( 36, "sprites/emv/fs_valor" )
 	-- 	self.Photon_OldDrawModel( self )
 	-- end
-end )
+--end )
 
 -- hook.Add( "PreR", "Photon.PleaseFuckingWOrk", function()
 -- 	render.MaterialOverrideByIndex( 0, "sprites/emv/fs_valor" )
@@ -595,7 +595,7 @@ end )
 -- 	-- end
 -- end )
 
---Commented out, added in Schmal's unfinished Estes Park update. 
+--Commented out, added in Schmal's unfinished Estes Park update.
 --[[
 hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	local targs = {}
@@ -627,6 +627,7 @@ hook.Add( "PreDrawHalos", "Photon.HaloTest", function()
 	-- halo.Add( targs, Color( 200, 220, 255 ), 4, 4, 5, true, false )
 end )
 ]]
+--[[
 hook.Add("HudPaint","photonmodelglowtest",function()
 	for k,ent in pairs( ents.GetAll() ) do
 		if not IsValid( ent ) then continue end
@@ -671,3 +672,4 @@ hook.Add("HudPaint","photonmodelglowtest",function()
 		end
 	end
 end)
+]]
